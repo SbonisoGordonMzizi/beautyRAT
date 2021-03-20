@@ -24,11 +24,12 @@ def create_datebase(database_path: str):
     conn.close()
 
 
-def save_to_database(database_path:str,request_time:str,client_address:str,http_version:str,request_type:str,client_agent:str):
+def save_to_database(database_path:str,req_time:str,c_address:str,http_ver:str,req_type:str,c_agent:str):
     conn = lite.connect(database_path)
+
     with conn:
         cur = conn.cursor()
-        #hold = cur.execute("INSERT INTO connected_client ('request_time','client_address','http_version','request_type','client_agent')VALUES(request_time,client_address,http_version,request_type,client_agent);")
-        hold = cur.execute()
-        cur.execute(hold)
+        hold = f"INSERT INTO connected_client ( request_time, client_address ,http_version, request_type , client_agent )VALUES(\"{req_time}\",\"{c_address}\",\"{http_ver}\",\"{req_type}\",\"{c_agent}\");"
+        r = cur.execute(hold)
+
     conn.close()
